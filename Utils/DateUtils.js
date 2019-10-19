@@ -21,11 +21,27 @@ const getDate = () => {
 
 
 const getWeekNum = () => {
-    const date = new Date();
-    const dayNum = date.getUTCDay() || 7;
-    date.setUTCDate(date.getUTCDate() + 2 - dayNum);
-    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 8, 2));
-    return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const yearOfStart = (currentDate.getMonth() >= 8) 
+                        ? currentDate.getUTCFullYear()
+                        : (currentDate.getUTCFullYear() - 1);
+    const firstDayOfSchoolYear = new Date(Date.UTC(yearOfStart, 8, 2));
+    firstDayOfSchoolYear.setHours(0, 0, 0, 0);
+    const pastDaysOfSchoolYear = ((currentDate - firstDayOfSchoolYear) / 86400000) + 1;
+    console.log(`
+    ${currentDate} \n
+    ${yearOfStart} \n
+    ${firstDayOfSchoolYear} \n
+    ${pastDaysOfSchoolYear} \n
+    
+    `);
+    return Math.ceil((pastDaysOfSchoolYear + firstDayOfSchoolYear.getDay()) / 7);
+    // const date = new Date();
+    // const dayNum = date.getUTCDay() || 7;
+    // date.setUTCDate(date.getUTCDate() + 2 - dayNum);
+    // const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 8, 2));
+    // return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
 };
 
 const isEven = () => (getWeekNum() % 2) ? "нечетная" : "четная";
