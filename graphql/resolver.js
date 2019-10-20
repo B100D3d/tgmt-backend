@@ -1,6 +1,5 @@
 
-const {getDate, getWeekNum, isEven} = require('../Utils/DateUtils.js');
-
+import { getDate, getWeekNum, isEven } from '../Utils/DateUtils.js';
 
 const mainPageResolver = {
     week: () => {
@@ -9,4 +8,4 @@ const mainPageResolver = {
 };
 
 
-module.exports = {mainPageResolver};
+export default {mainPageResolver};

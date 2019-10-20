@@ -1,11 +1,11 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const schema = require('../graphql/schema.js');
-const resolver = require('../graphql/resolver.js');
+import { Router } from 'express';
+import graphqlHTTP from 'express-graphql';
+import schema from '../graphql/schema.js';
+import resolver from '../graphql/resolver.js';
 
-const router = express.Router();
+const weekRouter = Router();
 
-router.use('/week', graphqlHTTP(
+weekRouter.use('/week', graphqlHTTP(
     {
         schema: schema.mainPageInfo,
         rootValue: resolver.mainPageResolver,
@@ -13,4 +13,4 @@ router.use('/week', graphqlHTTP(
     }
 ));
 
-module.exports = router;
+export default weekRouter;

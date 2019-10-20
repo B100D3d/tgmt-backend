@@ -29,10 +29,10 @@ const getWeekNum = () => {
     const firstDayOfSchoolYear = new Date(Date.UTC(yearOfStart, 8, 2));
     firstDayOfSchoolYear.setHours(0, 0, 0, 0);
     const pastDaysOfSchoolYear = ((currentDate - firstDayOfSchoolYear) / 86400000) + 1;
-    return Math.ceil((pastDaysOfSchoolYear + firstDayOfSchoolYear.getDay()) / 7);
+    return Math.ceil((pastDaysOfSchoolYear + firstDayOfSchoolYear.getDay() - 1) / 7);
 };
 
 const isEven = () => (getWeekNum() % 2) ? "нечетная" : "четная";
 
 
-module.exports =  {getDate, getWeekNum, isEven};
+export {getDate, getWeekNum, isEven};

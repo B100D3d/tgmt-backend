@@ -1,4 +1,4 @@
-const { buildSchema } = require('graphql');
+import { buildSchema } from 'graphql';
 
 
 const mainPageInfo = buildSchema(`
@@ -14,5 +14,5 @@ const mainPageInfo = buildSchema(`
     }
 `);
 
-module.exports = {mainPageInfo};
+export default {mainPageInfo};
 

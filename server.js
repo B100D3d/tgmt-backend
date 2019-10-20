@@ -1,6 +1,6 @@
 
-const express = require('express');
-const weekRouter = require('./routes/week.js')
+import express from 'express';
+import weekRouter from './routes/week.js';
 
 const app = express();
 const port = 3001;
