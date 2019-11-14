@@ -3,9 +3,9 @@ import graphqlHTTP from 'express-graphql';
 import schema from '../graphql/schema.js';
 import resolver from '../graphql/resolver.js';
 
-const weekRouter = Router();
+const apiRouter = Router();
 
-weekRouter.use('/week', graphqlHTTP(
+apiRouter.use('/mainPage', graphqlHTTP(
     {
         schema: schema.mainPageInfo,
         rootValue: resolver.mainPageResolver,
@@ -13,4 +13,4 @@ weekRouter.use('/week', graphqlHTTP(
     }
 ));
 
-export default weekRouter;
+export default apiRouter;

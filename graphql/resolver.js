@@ -1,11 +1,13 @@
+import * as Date from '../Model/Date';
 
-import { getDate, getWeekNum, isEven } from '../Utils/DateUtils.js';
+export default class Resolver {
+    static mainPageResolver = {
+        week: () => ({
+            date: Date.getDate(), 
+            weekNum: Date.getWeekNum(), 
+            even: Date.isEven()
+        }),
 
-const mainPageResolver = {
-    week: () => {
-        return { date: getDate(), weekNum: getWeekNum(), even: isEven()};
-    },
-};
-
-
-export default {mainPageResolver};
+        resources: () => [{img: 'img', text: 'text', url: 'url'}],
+    };
+}

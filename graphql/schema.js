@@ -1,18 +1,27 @@
 import { buildSchema } from 'graphql';
 
+class Schema {
+    static mainPageInfo = buildSchema(`
 
-const mainPageInfo = buildSchema(`
+        type Query {
+            week: Week,
+            resources: [Resource]
+        },
 
-    type Query{
-        week: Week
-    },
+        type Week {
+            date: String,
+            weekNum: Int,
+            even: String
+        }
 
-    type Week{
-        date: String,
-        weekNum: Int,
-        even: String
-    }
-`);
+        type Resource {
+            img: String,
+            text: String,
+            url: String
+        }
+    `);
+}
 
-export default {mainPageInfo};
 
+
+export default Schema;
