@@ -1,4 +1,5 @@
 import * as Date from '../Model/Date';
+import { getResources } from '../Model/Resources';
 
 export default class Resolver {
     static mainPageResolver = {
@@ -8,6 +9,6 @@ export default class Resolver {
             even: Date.isEven()
         }),
 
-        resources: () => [{img: 'img', text: 'text', url: 'url'}],
+        resources: () => getResources(),
     };
 }
