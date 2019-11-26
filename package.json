@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --exec babel-node server.js",
-    "debug": "nodemon --inspect --exec babel-node server.js"
+    "debug": "nodemon --inspect --exec babel-node server.js",
+    "start": "babel-node server.js"
   },
   "author": "",
   "license": "ISC",
