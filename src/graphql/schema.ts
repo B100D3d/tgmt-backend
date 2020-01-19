@@ -1,7 +1,7 @@
-import { buildSchema } from 'graphql';
+import { buildSchema } from "graphql";
 
-class Schema {
-    static mainPageInfo = buildSchema(`
+export default class Schema {
+    public static mainPageInfo = buildSchema(`
 
         type Query {
             week: Week,
@@ -21,7 +21,3 @@ class Schema {
         }
     `);
 }
-
-
-
-export default Schema;
