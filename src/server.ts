@@ -18,21 +18,21 @@ const port = process.env.PORT;
 app.use(cors());
 app.use("/api", apiRouter);
 
-// https.createServer({
-//     cert: fs.readFileSync(path.join(sslDir, "tgmt.crt")),
-//     key: fs.readFileSync(path.join(sslDir, "tgmt.key"))
-// }, app).listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-
-//     db.on("error", err => {
-//         console.log(`Mongodb connection has error: ${err}`);
-//     });
-// });
-
-app.listen(port, () => {
+https.createServer({
+    cert: fs.readFileSync(path.join(sslDir, "tgmt.crt")),
+    key: fs.readFileSync(path.join(sslDir, "tgmt.key"))
+}, app).listen(port, () => {
     console.log(`Server is running on port ${port}`);
 
     db.on("error", err => {
         console.log(`Mongodb connection has error: ${err}`);
     });
-})
+});
+
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+
+//     db.on("error", err => {
+//         console.log(`Mongodb connection has error: ${err}`);
+//     });
+// })
