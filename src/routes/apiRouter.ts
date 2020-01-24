@@ -7,9 +7,9 @@ const apiRouter = Router();
 
 apiRouter.use("/mainPage", graphqlHTTP(
     {
-        schema: schema.mainPageInfo,
+        graphiql: true,
         rootValue: resolver.mainPageResolver,
-        graphiql: true
+        schema: schema.mainPageInfo
     }
 ));
 

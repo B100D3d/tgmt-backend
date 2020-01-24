@@ -6,6 +6,5 @@ const resourceSchema = new mongoose.Schema({
     url: String
 });
 
-const resourceModel = mongoose.model("Resource", resourceSchema);
+export default mongoose.model("Resource", resourceSchema);
 
-export default resourceModel;
