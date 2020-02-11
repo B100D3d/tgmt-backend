@@ -25,7 +25,7 @@ const checkAdmin = async (req: Request, res: Response, next: NextFunction) => {
               });
         }
         next()
-
+        
     } catch (err) {
         res.status(401).json({
             error: {

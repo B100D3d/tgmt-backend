@@ -14,7 +14,7 @@ apiRouter.use("/mainPage", graphqlHTTP({
 }
 ))
 
-apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
+apiRouter.use("/createUser", (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.createUsersResolver,
     schema: schema.createUsers,
@@ -41,6 +41,9 @@ apiRouter.use("/auth", checkToken, (req, res) => graphqlHTTP({
 apiRouter.use("/logout", (req, res) => {
     if (req.cookies.token){
         res.clearCookie("token").status(200).send()
+    }
+    else {
+        res.status(200).send()
     }
 })
 

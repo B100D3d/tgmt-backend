@@ -4,8 +4,6 @@ import { generateLogin, generatePassword } from "./Utils"
 import { UserCreatingData, UserRegData, UserModel, Admin, LoginInfo } from "../types"
 import { sendCreatingEmail, sendLoginEmail } from "../Model/Email"
 
-const OPTIONS = +process.env.PROD ? { httpOnly: true, secure: true } : { httpOnly: true }
-
 const getUserData = (user: UserModel) => {
 
     switch (user.role){
@@ -101,8 +99,9 @@ export const auth = async (_: any, {req, res}: any) => {
         return
     }
 
+    const options = +process.env.PROD ? { httpOnly: true, secure: true } : { httpOnly: true }
     const token = user.generateJWT()
-    res.cookie("token", token, OPTIONS)
+    res.cookie("token", token, options)
 
     if (user.email){
         sendLoginEmail(user.name, user.email, req)
@@ -130,8 +129,9 @@ export const login = async ({login, password}: LoginInfo, {req, res}: any) => {
         return
     }
 
+    const options = +process.env.PROD ? { httpOnly: true, secure: true } : { httpOnly: true }
     const token = user.generateJWT()
-    res.cookie("token", token, OPTIONS)  
+    res.cookie("token", token, options)  
 
     if (user.email){
         sendLoginEmail(user.name, user.email, req)
