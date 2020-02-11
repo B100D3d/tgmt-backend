@@ -14,7 +14,7 @@ apiRouter.use("/mainPage", graphqlHTTP({
 }
 ))
 
-apiRouter.use("/createUser", (req, res) => graphqlHTTP({
+apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.createUsersResolver,
     schema: schema.createUsers,
