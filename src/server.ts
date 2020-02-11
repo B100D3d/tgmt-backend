@@ -1,4 +1,6 @@
 
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -16,23 +18,25 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/api", apiRouter);
 
-https.createServer({
-    cert: fs.readFileSync(path.join(sslDir, "tgmt.crt")),
-    key: fs.readFileSync(path.join(sslDir, "tgmt.key"))
-}, app).listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-
-    db.on("error", err => {
-        console.log(`Mongodb connection has error: ${err}`);
-    });
-});
-
-// app.listen(port, () => {
+// https.createServer({
+//     cert: fs.readFileSync(path.join(sslDir, "tgmt.crt")),
+//     key: fs.readFileSync(path.join(sslDir, "tgmt.key"))
+// }, app).listen(port, () => {
 //     console.log(`Server is running on port ${port}`);
 
 //     db.on("error", err => {
 //         console.log(`Mongodb connection has error: ${err}`);
 //     });
-// })
+// });
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+
+    db.on("error", err => {
+        console.log(`Mongodb connection has error: ${err}`);
+    });
+})

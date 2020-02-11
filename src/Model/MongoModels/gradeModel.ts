@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
+import { GradesModel } from "../../types";
 
 
-const gradeSchema = new mongoose.Schema({
+const gradesSchema = new mongoose.Schema({
     subject: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subject"
     },
     date: Date,
-    grade: Number
+    grades: [Number]
 });
 
-export default mongoose.model("Grade", gradeSchema);
+export default mongoose.model<GradesModel>("Grades", gradesSchema);

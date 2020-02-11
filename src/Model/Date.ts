@@ -1,3 +1,4 @@
+import { Week } from "../types";
 
 const months: {[key: number]: string} = {
     0: "Января",
@@ -33,3 +34,9 @@ export const getWeekNum = (): number => {
 };
 
 export const isEven = (): string => (getWeekNum() % 2) ? "нечетная" : "четная";
+
+export default (): Week => ({
+    date: getDate(),
+    even: isEven(),
+    weekNum: getWeekNum()
+})

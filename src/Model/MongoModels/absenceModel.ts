@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
+import { AbsenceModel } from "../../types";
 
 
 const absenceSchema = new mongoose.Schema({
-    classNumber: Number,
     date: Date,
-    absence: Boolean
-})
+    absence: [Number]
+});
 
-export default mongoose.model("Absence", absenceSchema);
+export default mongoose.model<AbsenceModel>("Absence", absenceSchema);

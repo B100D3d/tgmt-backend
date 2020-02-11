@@ -15,6 +15,10 @@
         }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "src/types/custom.d.ts"
+    ],
+    "files": [
+        "src/types/custom.d.ts"
     ]
 }

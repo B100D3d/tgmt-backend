@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ResourceModel } from "../../types";
 
 const resourceSchema = new mongoose.Schema({
     img: String,
@@ -6,5 +7,5 @@ const resourceSchema = new mongoose.Schema({
     url: String
 });
 
-export default mongoose.model("Resource", resourceSchema);
+export default mongoose.model<ResourceModel>("Resource", resourceSchema);
 
