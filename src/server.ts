@@ -17,6 +17,7 @@ const sslDir = "../../../../etc/ssl/";
 const app = express();
 const port = process.env.PORT;
 
+app.set("trust proxy", true)
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
