@@ -3,6 +3,11 @@ import { UserRegData } from "../types"
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    socketTimeout: 5000,
+    logger: true,
     auth: {
         user: "info.tuapsegmt@gmail.com",
         pass: "fSociety00"

@@ -13,7 +13,6 @@ apiRouter.use("/mainPage", graphqlHTTP({
     schema: schema.mainPageInfo
 }
 ))
-
 apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.createUsersResolver,
