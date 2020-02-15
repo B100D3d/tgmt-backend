@@ -19,7 +19,7 @@ const port = process.env.PORT;
 
 app.set("trust proxy", true)
 app.use(cors({
-    origin: ["https://тгмт.рф", "http://localhost:3001"], 
+    origin: ["https://тгмт.рф", "http://localhost:3000"], 
     optionsSuccessStatus: 200, 
     credentials: true,
     methods: ["GET", "POST"],
