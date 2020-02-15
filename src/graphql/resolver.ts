@@ -1,6 +1,6 @@
 import getWeek from "../Model/Date";
 import { getResources } from "../Model/Resources";
-import { auth, createUser, login } from "../Model/User";
+import { auth, createUser, login, setEmail, changePassword } from "../Model/User";
 
 export default class Resolver {
     public static mainPageResolver = {
@@ -18,6 +18,11 @@ export default class Resolver {
 
     public static authResolver = {
         auth
+    }
+
+    public static setUserInfoResolver = {
+        setEmail,
+        changePassword
     }
 }
 

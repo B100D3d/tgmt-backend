@@ -147,9 +147,17 @@ export interface Grade {
     grade: number;
 }
 
-export interface LoginInfo {
+export interface Login {
     login: string;
+}
+
+export interface LoginInfo extends Login {
     password: string;
+}
+
+export interface PasswordsInfo {
+    oldPassword: string;
+    newPassword: string;
 }
 
 export interface Week {
@@ -162,4 +170,8 @@ export interface Res {
     img: string;
     text: string;
     url: string;
+}
+
+export interface Email {
+    email: string;
 }

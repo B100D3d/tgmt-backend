@@ -18,7 +18,13 @@ const app = express();
 const port = process.env.PORT;
 
 app.set("trust proxy", true)
-app.use(cors());
+app.use(cors({
+    origin: ["https://тгмт.рф", "http://localhost:3001"], 
+    optionsSuccessStatus: 200, 
+    credentials: true,
+    methods: ["GET", "POST"],
+    allowedHeaders: "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/api", apiRouter);

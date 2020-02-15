@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     socketTimeout: 5000,
-    logger: true,
+    logger: false,
     auth: {
         user: "info.tuapsegmt@gmail.com",
         pass: "fSociety00"
@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 })
 
 
-export const sendCreatingEmail = async (userData: UserRegData) => {
+export const sendUserCreatingEmail = async (userData: UserRegData) => {
     const {name, login, password, role, email} = userData
     const text = `Пользователь ${name} с ролью "${role}" был успешно создан!\n
     Данные для входа:\n
@@ -30,7 +30,7 @@ export const sendCreatingEmail = async (userData: UserRegData) => {
 
     try{
         const info = await transporter.sendMail(mailOptions)
-        console.log(info)
+        //console.log(info)
     } catch (err) {
         console.log(err)
     }
@@ -39,7 +39,7 @@ export const sendCreatingEmail = async (userData: UserRegData) => {
 
 export const sendLoginEmail = async (name: string, email: string, req: any) => {
     const text = `В аккаунт "${name}" был произведён вход\n
-    IP: ${req.connection.remoteAddress}\n
+    IP: ${req.ip}\n
     ${req.headers["user-agent"]}`
     const mailOptions = {
         from: "info.tuapsegmt@gmail.com",
@@ -50,7 +50,26 @@ export const sendLoginEmail = async (name: string, email: string, req: any) => {
 
     try{
         const info = await transporter.sendMail(mailOptions)
-        console.log(info)
+        //console.log(info)
+    } catch (err) {
+        console.log(err)
+    }
+    
+}
+
+
+export const sendPassChangedEmail = async (name: string, email: string, password: string) => {
+    const text = `У аккаунта "${name}" был изменён пароль.\nНовый пароль: ${password}`
+    const mailOptions = {
+        from: "info.tuapsegmt@gmail.com",
+        to: email,
+        subject: "Изменение пароля",
+        text
+    }
+
+    try{
+        const info = await transporter.sendMail(mailOptions)
+        //console.log(info)
     } catch (err) {
         console.log(err)
     }

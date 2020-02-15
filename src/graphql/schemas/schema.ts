@@ -2,7 +2,9 @@ import {
     buildSchema,
     GraphQLObjectType,
     GraphQLSchema,
-    GraphQLString
+    GraphQLString,
+    GraphQLBoolean,
+    GraphQLNonNull
 } from "graphql";
 
 import User from "./types/user"
@@ -28,7 +30,7 @@ export default class Schema {
         }
     `)
 
-    public static createUsers = buildSchema(`
+    public static createUser = buildSchema(`
 
         type Query {
             need: String
@@ -47,9 +49,9 @@ export default class Schema {
         }
     `)
 
-    public static getUsers = new GraphQLSchema({
+    public static getUser = new GraphQLSchema({
         query: new GraphQLObjectType({
-            name: "Query",
+            name: "GetUserQuery",
             fields: () => ({
                 login: {
                     type: User,
@@ -64,6 +66,50 @@ export default class Schema {
                 },
                 auth: {
                     type: User
+                }
+            })
+        })
+    })
+
+    public static getUserInfo = new GraphQLSchema({
+        query: new GraphQLObjectType({
+            name: "GetUserInfoQuery",
+            fields: () => ({
+
+            })
+        })
+    })
+
+    public static setUserInfo = new GraphQLSchema({
+        query: new GraphQLObjectType({
+            name: "SetUserInfoQuery",
+            fields: () => ({
+                need: {
+                    type: GraphQLString
+                }
+            })
+        }),
+        mutation: new GraphQLObjectType({
+            name: "SetUserInfoMutation",
+            fields: () => ({
+                setEmail: {
+                    type: GraphQLString,
+                    args: {
+                        email: {
+                            type: GraphQLString
+                        }
+                    }
+                },
+                changePassword: {
+                    type: GraphQLBoolean,
+                    args: {
+                        oldPassword: {
+                            type: new GraphQLNonNull(GraphQLString)
+                        },
+                        newPassword: {
+                            type: new GraphQLNonNull(GraphQLString)
+                        }
+                    }
                 }
             })
         })

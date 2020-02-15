@@ -16,7 +16,7 @@ apiRouter.use("/mainPage", graphqlHTTP({
 apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.createUsersResolver,
-    schema: schema.createUsers,
+    schema: schema.createUser,
     context: {req, res}
 }
 )(req, res))
@@ -24,7 +24,7 @@ apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
 apiRouter.use("/login", (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.loginResolver,
-    schema: schema.getUsers,
+    schema: schema.getUser,
     context: {req, res}
 }
 )(req, res))
@@ -32,7 +32,7 @@ apiRouter.use("/login", (req, res) => graphqlHTTP({
 apiRouter.use("/auth", checkToken, (req, res) => graphqlHTTP({
     graphiql: true,
     rootValue: resolver.authResolver,
-    schema: schema.getUsers,
+    schema: schema.getUser,
     context: {req, res}
 }
 )(req, res))
@@ -45,5 +45,13 @@ apiRouter.use("/logout", (req, res) => {
         res.status(200).send()
     }
 })
+
+apiRouter.use("/setUserInfo", checkToken, (req, res) => graphqlHTTP({
+    graphiql: true,
+    rootValue: resolver.setUserInfoResolver,
+    schema: schema.setUserInfo,
+    context: {req, res}
+}
+)(req, res))
 
 export default apiRouter
