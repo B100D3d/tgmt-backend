@@ -23,14 +23,14 @@ app.use(cors({
     optionsSuccessStatus: 200, 
     credentials: true,
     methods: ["GET", "POST"],
-    allowedHeaders: "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+    allowedHeaders: "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Origin"
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/api", apiRouter);
 
 
-if (+process.env.PROD){
+if (+process.env.HTTPS){
     https.createServer({
         cert: fs.readFileSync(path.join(sslDir, "tgmt.crt")),
         key: fs.readFileSync(path.join(sslDir, "tgmt.key"))

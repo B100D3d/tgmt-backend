@@ -13,6 +13,8 @@ import {
 } from "../types"
 import { sendUserCreatingEmail, sendLoginEmail, sendPassChangedEmail } from "../Model/Email"
 
+const DEFAULT_OPTIONS = { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }
+
 const getUserData = (user: UserModel) => {
 
     switch (user.role) {
@@ -110,7 +112,7 @@ export const auth = async (_: any, { req, res }: any) => {
             return
         }
 
-        const options = +process.env.PROD ? { httpOnly: true, secure: true } : { httpOnly: true }
+        const options = +process.env.PROD ? {...DEFAULT_OPTIONS, secure: true} : DEFAULT_OPTIONS
         const token = user.generateJWT()
         res.cookie("token", token, options)
 
@@ -150,7 +152,7 @@ export const login = async ({ login, password }: LoginInfo, { req, res }: any) =
             return
         }
 
-        const options = +process.env.PROD ? { httpOnly: true, secure: true } : { httpOnly: true }
+        const options = +process.env.PROD ? {...DEFAULT_OPTIONS, secure: true} : DEFAULT_OPTIONS
         const token = user.generateJWT()
         res.cookie("token", token, options)
 
