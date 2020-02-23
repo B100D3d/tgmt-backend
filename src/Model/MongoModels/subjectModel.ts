@@ -3,6 +3,7 @@ import { SubjectModel } from "../../types";
 
 
 const subjectSchema = new mongoose.Schema({
+    id: String,
     name: String,
     teacher: {
         type: mongoose.Schema.Types.ObjectId,

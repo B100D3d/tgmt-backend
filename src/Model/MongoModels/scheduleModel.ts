@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ScheduleModule } from "../../types";
+import { ScheduleModel } from "../../types";
 
 
 const scheduleSchema = new mongoose.Schema({
@@ -11,4 +11,4 @@ const scheduleSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model<ScheduleModule>("Schedule", scheduleSchema);
+export default mongoose.model<ScheduleModel>("Schedule", scheduleSchema);

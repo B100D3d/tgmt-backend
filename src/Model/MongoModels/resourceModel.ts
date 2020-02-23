@@ -8,4 +8,3 @@ const resourceSchema = new mongoose.Schema({
 });
 
 export default mongoose.model<ResourceModel>("Resource", resourceSchema);
-

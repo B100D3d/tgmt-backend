@@ -7,8 +7,8 @@ const gradesSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subject"
     },
-    date: Date,
-    grades: [Number]
+    month: Number,
+    grades: [Number] // [оценки за месяц]
 });
 
 export default mongoose.model<GradesModel>("Grades", gradesSchema);

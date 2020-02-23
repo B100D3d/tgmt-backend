@@ -10,8 +10,13 @@ const userSchema = new mongoose.Schema({
     role: String,
     email: String,
     fingerprints: Array,
-    data: {
-        type: mongoose.Schema.Types.Mixed
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student"
+    },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher"
     }
 })
 
@@ -39,4 +44,3 @@ userSchema.methods.generateJWT = function(): string {
 };
 
 export default mongoose.model<UserModel>("User", userSchema);
-
