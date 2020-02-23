@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const servUrl = "mongodb+srv://devourer:fSociety00@tgmtdb-sf49z.mongodb.net/tgmtdb?retryWrites=true&w=majority";
-const localUrl = "mongodb://localhost:27017/tgmt_db";
+const servUrl = process.env.SERV_URL;
+const localUrl = process.env.LOCAL_URL;
 
 mongoose.connect(servUrl, { autoIndex: false, 
                             useNewUrlParser: true, 

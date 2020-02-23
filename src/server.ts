@@ -3,14 +3,15 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+
+dotenv.config();
+
 import express from "express";
 import fs from "fs";
 import https from "https";
 import path from "path";
 import db from "./Model/mongodb";
 import apiRouter from "./routes/apiRouter";
-
-dotenv.config();
 
 const sslDir = "../../../../etc/ssl/";
 
