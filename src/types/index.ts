@@ -1,4 +1,4 @@
-import { Schema, Document } from "mongoose";
+import { Schema, Document, Types } from "mongoose";
 
 export interface TokenInfo {
     uniqueId: string;
@@ -12,22 +12,40 @@ export interface UserRegData {
     email: string;
 }
 
+export interface StudentRegData extends UserRegData {
+    groupName: string;
+}
+
 export interface UserCreatingData {
     name: string;
-    role?: string;
     email: string;
 }
 
-export interface AdminCreatingData {
-    name: string;
+export interface AdminCreatingData extends UserCreatingData {
+    login: string;
+    password: string;
 }
 
-export interface StudentCreatingData {
-    name: string;
+export interface StudentCreatingData extends UserCreatingData {
+    groupName: string;
 }
 
-export interface TeacherCreatingData {
+
+export interface GroupCreatingData {
     name: string;
+    year: number;
+}
+
+export interface CreatedGroup extends GroupCreatingData {
+    id: string;
+}
+export interface SubjectCreatingData {
+    name: string;
+    teacher: string;
+}
+
+export interface CreatedSubject extends SubjectCreatingData {
+    id: string;
 }
 
 export interface User {
@@ -37,7 +55,8 @@ export interface User {
     role: string;
     email: string;
     fingerprints: Array<string>;
-    data?: Schema.Types.Mixed;
+    student?: Schema.Types.ObjectId & StudentModel;
+    teacher?: Schema.Types.ObjectId & TeacherModel;
 }
 
 export interface UserModel extends User, Document {
@@ -47,21 +66,24 @@ export interface UserModel extends User, Document {
 }
 
 export interface StudentModel extends Document {
+    id: string;
     name: string;
-    grades: Schema.Types.ObjectId[];
-    absences: Schema.Types.ObjectId[];
-    group: Schema.Types.ObjectId;
+    grades: Types.Array<Schema.Types.ObjectId & GradesModel>;
+    absences: Types.Array<Schema.Types.ObjectId & AbsenceModel>;
+    group: Schema.Types.ObjectId & GroupModel;
 }
 
 
 export interface TeacherModel extends Document {
+    id: string;
     name: string;
-    groups: Schema.Types.ObjectId[];
+    subjects: Types.Array<Schema.Types.ObjectId & SubjectModel>;
 }
 
 export interface SubjectModel extends Document {
+    id: string;
     name: string;
-    teacher: Schema.Types.ObjectId;
+    teacher: Schema.Types.ObjectId & TeacherModel;
 }
 
 export interface ResourceModel extends Document {
@@ -78,28 +100,29 @@ export interface AbsenceModel extends Document {
 export interface GradesModel extends Document {
     subject: Schema.Types.ObjectId;
     date: Date;
-    grades: [number];
+    grades: Array<number>;
 }
 
 export interface GroupModel extends Document {
+    id: string;
     name: string;
-    students: Schema.Types.ObjectId[];
-    subjects: Schema.Types.ObjectId[];
-    schedule: Schema.Types.ObjectId[];
+    students: Types.Array<Schema.Types.ObjectId & StudentModel>;
+    subjects: Types.Array<Schema.Types.ObjectId & SubjectModel>;
+    schedule: Types.Array<Schema.Types.ObjectId & ScheduleModel>;
     year: number;
 }
 
-export interface ScheduleModule extends Document {
+export interface ScheduleModel extends Document {
     classNumber: number;
     weekday: number;
-    subject: Schema.Types.ObjectId;
+    subject: Schema.Types.ObjectId & SubjectModel;
 }
 
 export interface Admin {
     name: string;
     role: string;
+    email: string;
     groups: Group[];
-    teachers: Teacher[];
 }
 
 export interface Teacher {
@@ -109,30 +132,32 @@ export interface Teacher {
 }
 
 export interface Student {
+    id?: string;
     name: string;
-    role: string;
-    grades: Grade[];
-    absences: Absence[];
+    role?: string;
+    email: string;
     group: Group;
+    schedule?: Array<Schedule>;
 }
 
 export interface Group {
+    id?: string;
     name: string;
-    students: Student[];
-    subjects: Subject[];
-    schedule: Schedule[];
+    students?: Student[];
+    subjects?: Subject[];
+    schedule?: Schedule[];
     year: number;
 }
 
 export interface Schedule {
     subject: Subject;
     classNumber: number;
-    weekDay: number;
+    weekday: number;
 }
 
 export interface Subject {
     name: string;
-    teacher: Teacher;
+    teacher: string;
 }
 
 export interface Absence {

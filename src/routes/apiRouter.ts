@@ -1,38 +1,40 @@
 import { Router } from "express"
 import graphqlHTTP from "express-graphql"
 import resolver from "../graphql/resolver"
-import schema from "../graphql/schemas/schema"
+import * as schema from "../graphql/schemas"
 import checkToken from "../middleware/checkToken"
 import checkAdmin from "../middleware/checkAdmin"
 
 const apiRouter = Router()
 
+const isDev = !(+process.env.PROD)
+
 apiRouter.use("/mainPage", graphqlHTTP({
-    graphiql: true,
+    graphiql: isDev,
     rootValue: resolver.mainPageResolver,
     schema: schema.mainPageInfo
 }
 ))
 apiRouter.use("/createUser", checkAdmin, (req, res) => graphqlHTTP({
-    graphiql: true,
+    graphiql: isDev,
     rootValue: resolver.createUsersResolver,
-    schema: schema.createUser,
+    schema: schema.userCreating,
     context: {req, res}
 }
 )(req, res))
 
 apiRouter.use("/login", (req, res) => graphqlHTTP({
-    graphiql: true,
+    graphiql: isDev,
     rootValue: resolver.loginResolver,
-    schema: schema.getUser,
+    schema: schema.login,
     context: {req, res}
 }
 )(req, res))
 
 apiRouter.use("/auth", checkToken, (req, res) => graphqlHTTP({
-    graphiql: true,
+    graphiql: isDev,
     rootValue: resolver.authResolver,
-    schema: schema.getUser,
+    schema: schema.auth,
     context: {req, res}
 }
 )(req, res))
@@ -47,9 +49,33 @@ apiRouter.use("/logout", (req, res) => {
 })
 
 apiRouter.use("/setUserInfo", checkToken, (req, res) => graphqlHTTP({
-    graphiql: true,
+    graphiql: isDev,
     rootValue: resolver.setUserInfoResolver,
-    schema: schema.setUserInfo,
+    schema: schema.userInfoSetting,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/groups", checkAdmin, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.groupsResolver,
+    schema: schema.groups,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/students", checkAdmin, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.studentsResolver,
+    schema: schema.students,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/subjects", checkAdmin, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.subjectsResolver,
+    schema: schema.subjects,
     context: {req, res}
 }
 )(req, res))
