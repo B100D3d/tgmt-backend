@@ -3,8 +3,8 @@ import {
     GraphQLString,
     GraphQLList
 } from "graphql";
+
 import Group from "./group"
-import Teacher from "./teacher"
 
 
 export default new GraphQLObjectType({
@@ -21,10 +21,6 @@ export default new GraphQLObjectType({
         },
         groups: {
             type: new GraphQLList(Group)
-        },
-        teachers: {
-            type: new GraphQLList(Teacher)
         }
-
     })
 })

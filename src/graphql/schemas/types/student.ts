@@ -1,11 +1,12 @@
 import { 
     GraphQLObjectType,
     GraphQLString,
-    GraphQLList,
-    GraphQLInt
+    GraphQLList
 } from "graphql";
-import Absence from "./absence"
-import Grade from "./grade"
+
+import Group from "./group"
+
+import Schedule from "./schedule";
 
 export default new GraphQLObjectType({
     name: "Student",
@@ -19,55 +20,11 @@ export default new GraphQLObjectType({
         email: {
             type: GraphQLString
         },
-        grades: {
-            type: new GraphQLList(Grade)
-        },
-        absences: {
-            type: new GraphQLList(Absence)
-        },
         group: {
-            type: new GraphQLObjectType({
-                name: "StudentGroup",
-                fields: () => ({
-                    name: {
-                        type: GraphQLString
-                    },
-                    subjects: {
-                        type: new GraphQLList(new GraphQLObjectType({
-                            name: "StudentSubjects",
-                            fields: () => ({
-                                name: {
-                                    type: GraphQLString
-                                },
-                                teacher: {
-                                    type: GraphQLString
-                                }
-                            })
-                        }))
-                    },
-                    schedule: {
-                        type: new GraphQLList(new GraphQLObjectType({
-                            name: "StudentSchedule",
-                            fields: () => ({
-                                subjects: {
-                                    type: GraphQLString
-                                },
-                                classNumber: {
-                                    type: GraphQLInt
-                                },
-                                weekDay: {
-                                    type: GraphQLInt
-                                }
-                            })
-                        }))
-                    },
-                    year: {
-                        type: GraphQLInt
-                    }
-                })
-            })
+            type: Group
+        },
+        schedule: {
+            type: new GraphQLList(Schedule)
         }
-
     })
 })
-

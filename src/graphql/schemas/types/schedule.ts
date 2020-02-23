@@ -2,8 +2,8 @@ import {
     GraphQLInt,
     GraphQLObjectType
 } from "graphql";
-import Subject from "./subject"
 
+import Subject from "./subject"
 
 export default new GraphQLObjectType({
     name: "Schedule",
@@ -14,7 +14,7 @@ export default new GraphQLObjectType({
         classNumber: {
             type: GraphQLInt
         },
-        weekDay: {
+        weekday: {
             type: GraphQLInt
         }
     })

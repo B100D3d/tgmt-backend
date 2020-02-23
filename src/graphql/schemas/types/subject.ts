@@ -2,7 +2,6 @@ import {
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
-import Teacher from "./teacher"
 
 
 export default new GraphQLObjectType({
@@ -12,7 +11,10 @@ export default new GraphQLObjectType({
             type: GraphQLString
         },
         teacher: {
-            type: Teacher
+            type: GraphQLString
+        },
+        id: {
+            type: GraphQLString
         }
     })
 })

@@ -1,5 +1,6 @@
 import {
-    GraphQLUnionType, GraphQLObjectType
+    GraphQLUnionType,
+    GraphQLObjectType
 } from "graphql";
 import Admin from "./admin"
 import Teacher from "./teacher"
@@ -9,13 +10,13 @@ export default new GraphQLUnionType({
     name: "User",
     types: [Admin, Teacher, Student],
     resolveType(value): GraphQLObjectType {
-        if (value.teachers){
+        if (value.groups) {
             return Admin
         }
-        if (value.groups){
+        if (value.subjects) {
             return Teacher
         }
-        if (value.grades || value.absences || value.group){
+        if (value.grades || value.absences || value.group) {
             return Student
         }
     }
