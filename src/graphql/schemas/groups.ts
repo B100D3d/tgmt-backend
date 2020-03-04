@@ -2,7 +2,9 @@ import {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLList,
+    GraphQLBoolean
 } from "graphql"
 
 import Group from "./types/group"
@@ -11,8 +13,8 @@ export default new GraphQLSchema({
     query: new GraphQLObjectType({
         name: "GroupQuery",
         fields: () => ({
-            need: {
-                type: GraphQLString
+            getGroups: {
+                type: new GraphQLList(Group)
             }
         })
     }),
@@ -21,6 +23,17 @@ export default new GraphQLSchema({
         fields: () => ({
             createGroup: {
                 type: Group,
+                args: {
+                    name: {
+                        type: GraphQLString
+                    },
+                    year: {
+                        type: GraphQLInt
+                    }
+                }
+            },
+            deleteGroup: {
+                type: GraphQLBoolean,
                 args: {
                     name: {
                         type: GraphQLString

@@ -10,13 +10,13 @@ export default new GraphQLUnionType({
     name: "User",
     types: [Admin, Teacher, Student],
     resolveType(value): GraphQLObjectType {
-        if (value.groups) {
-            return Admin
-        }
         if (value.subjects) {
             return Teacher
         }
-        if (value.grades || value.absences || value.group) {
+        if (value.groups) {
+            return Admin
+        }
+        if (value.group || value.schedule) {
             return Student
         }
     }

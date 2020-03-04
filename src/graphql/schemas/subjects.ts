@@ -1,7 +1,9 @@
 import {
     GraphQLSchema,
     GraphQLObjectType,
-    GraphQLString
+    GraphQLString,
+    GraphQLList,
+    GraphQLBoolean
 } from "graphql"
 
 import Subject from "./types/subject"
@@ -10,8 +12,8 @@ export default new GraphQLSchema({
     query: new GraphQLObjectType({
         name: "GroupQuery",
         fields: () => ({
-            need: {
-                type: GraphQLString
+            getSubjects: {
+                type: new GraphQLList(Subject)
             }
         })
     }),
@@ -20,6 +22,17 @@ export default new GraphQLSchema({
         fields: () => ({
             createSubject: {
                 type: Subject,
+                args: {
+                    name: {
+                        type: GraphQLString
+                    },
+                    teacher: {
+                        type: GraphQLString
+                    }
+                }
+            },
+            deleteSubject: {
+                type: GraphQLBoolean,
                 args: {
                     name: {
                         type: GraphQLString

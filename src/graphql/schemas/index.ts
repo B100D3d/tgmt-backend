@@ -6,6 +6,8 @@ import auth from "./auth"
 import groups from "./groups"
 import students from "./students"
 import subjects from "./subjects"
+import teachers from "./teachers"
+import schedules from "./schedules"
 
 
 export {
@@ -16,5 +18,7 @@ export {
     auth,
     groups,
     students,
-    subjects
+    subjects,
+    teachers,
+    schedules
 }
