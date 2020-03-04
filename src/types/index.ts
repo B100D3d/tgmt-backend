@@ -1,4 +1,10 @@
 import { Schema, Document, Types } from "mongoose";
+import { Request, Response } from "express"
+
+export interface ExpressParams {
+    res: Response;
+    req: Request;
+}
 
 export interface TokenInfo {
     uniqueId: string;
@@ -39,12 +45,25 @@ export interface GroupCreatingData {
 export interface CreatedGroup extends GroupCreatingData {
     id: string;
 }
-export interface SubjectCreatingData {
+export interface SubjectData {
     name: string;
     teacher: string;
 }
 
-export interface CreatedSubject extends SubjectCreatingData {
+export interface ScheduleGetData {
+    groupID: string;
+    even?: boolean;
+    subgroup?: number;
+}
+export interface ScheduleCreatingData extends ScheduleGetData {
+    schedule: Array<{
+        subjectID: string;
+        weekday: number;
+        classNumber: number;
+    }>;
+}
+
+export interface CreatedSubject extends SubjectData {
     id: string;
 }
 
@@ -115,7 +134,10 @@ export interface GroupModel extends Document {
 export interface ScheduleModel extends Document {
     classNumber: number;
     weekday: number;
+    even?: boolean;
+    subgroup?: number;
     subject: Schema.Types.ObjectId & SubjectModel;
+    group: Schema.Types.ObjectId & GroupModel;
 }
 
 export interface Admin {
@@ -126,9 +148,12 @@ export interface Admin {
 }
 
 export interface Teacher {
+    id?: string;
     name: string;
-    role: string;
-    groups: Group[];
+    email: string;
+    role?: string;
+    subjects?: Subject[];
+    groups?: Group[];
 }
 
 export interface Student {
@@ -156,8 +181,9 @@ export interface Schedule {
 }
 
 export interface Subject {
-    name: string;
-    teacher: string;
+    id: string;
+    name?: string;
+    teacher?: string;
 }
 
 export interface Absence {
