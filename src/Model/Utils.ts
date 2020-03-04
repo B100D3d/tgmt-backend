@@ -26,9 +26,10 @@ export const generateGroupID = (name: string): string => {
     return transliterate(name.split(" ").join(""))
 }
 
-export const generateSubjectID = (name: string): string => { // Дописать
-
-     return ""
+export const generateSubjectID = (name: string, teacher: string): string => {
+    const tName = transliterate(name.split(" ").join("_"))
+    const tTeacherLastName = transliterate(teacher.split(" ")[0])
+    return `${tName}_${tTeacherLastName}`
 }
 
 export const generateStudentID = (name: string, groupName: string): string => {

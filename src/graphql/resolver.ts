@@ -2,16 +2,16 @@ import getWeek from "../Model/Date";
 import { getResources } from "../Model/Resources";
 import {
     auth,
-    createAdmin,
-    createStudent,
-    createTeacher,
     login,
     setEmail,
     changePassword,
-    createGroup,
-    createSubject,
-    getStudents
 } from "../Model/User";
+import { createAdmin } from "../Model/Admin"
+import { createTeacher, getTeachers } from "../Model/Teacher"
+import { createStudent, getStudents } from "../Model/Student"
+import { getGroups, createGroup, deleteGroup } from "../Model/Group"
+import { getSubjects, createSubject, deleteSubject } from "../Model/Subject"
+import { getSchedule, setSchedule } from "../Model/Schedule"
 
 export default class Resolver {
     public static mainPageResolver = {
@@ -39,14 +39,30 @@ export default class Resolver {
     }
 
     public static groupsResolver = {
-        createGroup
+        createGroup,
+        deleteGroup,
+        getGroups
     }
 
     public static studentsResolver = {
         getStudents
     }
 
+    public static teachersResolver = {
+        getTeachers
+    }
+
     public static subjectsResolver = {
-        createSubject
+        createSubject,
+        deleteSubject,
+        getSubjects
+    }
+
+    public static setScheduleResolver = {
+        setSchedule
+    }
+
+    public static getScheduleResolver = {
+        getSchedule
     }
 }

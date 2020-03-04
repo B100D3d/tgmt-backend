@@ -4,6 +4,7 @@ import resolver from "../graphql/resolver"
 import * as schema from "../graphql/schemas"
 import checkToken from "../middleware/checkToken"
 import checkAdmin from "../middleware/checkAdmin"
+import checkAdminOrTeacher from "../middleware/checkTeacherOrAdmin"
 
 const apiRouter = Router()
 
@@ -72,10 +73,34 @@ apiRouter.use("/students", checkAdmin, (req, res) => graphqlHTTP({
 }
 )(req, res))
 
+apiRouter.use("/teachers", checkAdmin, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.teachersResolver,
+    schema: schema.teachers,
+    context: {req, res}
+}
+)(req, res))
+
 apiRouter.use("/subjects", checkAdmin, (req, res) => graphqlHTTP({
     graphiql: isDev,
     rootValue: resolver.subjectsResolver,
     schema: schema.subjects,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/setSchedule", checkAdminOrTeacher, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.setScheduleResolver,
+    schema: schema.schedules,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/getSchedule", checkToken, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.getScheduleResolver,
+    schema: schema.schedules,
     context: {req, res}
 }
 )(req, res))
