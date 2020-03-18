@@ -24,7 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
     "nodemailer": "^6.4.2",
-    "transliteration": "^2.1.8"
+    "transliteration": "^2.1.8",
+    "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
@@ -35,6 +36,7 @@
     "@types/mongoose": "^5.5.41",
     "@types/node": "^13.1.8",
     "@types/nodemailer": "^6.4.0",
+    "@types/ua-parser-js": "^0.7.33",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "eslint": "^6.8.0",

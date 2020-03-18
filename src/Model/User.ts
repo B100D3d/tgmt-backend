@@ -8,7 +8,7 @@ import {
     Student,
     Teacher,
     ExpressParams} from "../types"
-import { sendLoginEmail, sendPassChangedEmail } from "../Model/Email"
+import { sendLoginEmail, sendPassChangedEmail, sendEmailChangedEmail } from "../Model/Email"
 import { getAdminData } from "./Admin"
 import { getStudentData } from "./Student"
 import { getTeacherData } from "./Teacher"
@@ -103,6 +103,8 @@ export const setEmail = async ({ email }: Email, { req, res }: ExpressParams): P
             res.status(401)
             return
         }
+
+        sendEmailChangedEmail(user.name, user.email)
 
         return { email: user.email }
 

@@ -12,6 +12,7 @@ import { createStudent, getStudents } from "../Model/Student"
 import { getGroups, createGroup, deleteGroup } from "../Model/Group"
 import { getSubjects, createSubject, deleteSubject } from "../Model/Subject"
 import { getSchedule, setSchedule } from "../Model/Schedule"
+import { getStudentGrades, getGrades, setGrades } from "../Model/Grade"
 
 export default class Resolver {
     public static mainPageResolver = {
@@ -64,5 +65,14 @@ export default class Resolver {
 
     public static getScheduleResolver = {
         getSchedule
+    }
+
+    public static studentGradesResolver = {
+        getStudentGrades
+    }
+
+    public static gradesResolver = {
+        getGrades,
+        setGrades
     }
 }

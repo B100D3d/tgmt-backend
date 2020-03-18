@@ -1,5 +1,9 @@
 import nodemailer from "nodemailer"
+import { UAParser } from "ua-parser-js"
+import path from "path"
+import getLoginHtml from "./EmailTemplates/Login"
 import { UserRegData } from "../types"
+import { getDate, getTime } from "./Date"
 
 const ROLES: {[key: string]: string} = {
     Admin: "Администратор",
@@ -19,6 +23,14 @@ const transporter = nodemailer.createTransport({
         pass: "fSociety00"
     }
 })
+
+const getUAInfo = (userAgent: string) => {
+    const parser = new UAParser(userAgent)
+    const model = (parser.getDevice().vendor || "") + (parser.getDevice().vendor || "")
+    const os = `${ parser.getOS().name } ${ parser.getOS().version }`
+    const browser = `${ parser.getBrowser().name } ${ parser.getBrowser().version }`
+    return `${ model } | ${ os } | ${ browser }`
+}
 
 
 export const sendUserCreatingEmail = async (userData: UserRegData): Promise<void> => {
@@ -47,11 +59,24 @@ export const sendLoginEmail = async (name: string, email: string, role: string, 
     const text = `Был выполнен вход в аккаунт "${name}" (${ROLES[role]})\n
     IP: ${req.ip}\n
     ${req.headers["user-agent"]}`
+
+    const device = getUAInfo(req.headers["user-agent"])
+    const time = `${getDate()}, ${getTime()}`
+
+    const html = getLoginHtml(device, req.ip, time, name, ROLES[role])
     const mailOptions = {
         from: "info.tuapsegmt@gmail.com",
         to: email,
         subject: "Выполнен вход в аккаунт",
-        text
+        text,
+        html,
+        attachments: [
+            {
+                filename: "logo_back.webp",
+                path: path.join(__dirname, "/EmailTemplates/static/logo_back.webp"),
+                cid: "logo"
+            }
+        ]
     }
 
     try{
@@ -80,4 +105,21 @@ export const sendPassChangedEmail = async (name: string, email: string, password
         console.log(err)
     }
     
+}
+
+export const sendEmailChangedEmail = async (name: string, email: string): Promise<void> => {
+    const text = `Email успешно подключён к учётной записи "${name}"`
+    const mailOptions = {
+        from: "info.tuapsegmt@gmail.com",
+        to: email,
+        subject: "Изменение email адреса",
+        text
+    }
+
+    try{
+        const info = await transporter.sendMail(mailOptions)
+        //console.log(info)
+    } catch (err) {
+        console.log(err)
+    }
 }

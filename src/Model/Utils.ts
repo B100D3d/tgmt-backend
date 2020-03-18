@@ -2,6 +2,14 @@ import { transliterate } from "transliteration"
 
 const CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#$%*"
 
+export const range = (size: number, start?: number): Array<number> =>  {
+    
+    if (!start) return range(size, 0)
+    
+    return [...Array(size).keys()].map(k => k + start)
+} 
+
+
 const generateStr = (length: number): string => {
     let str = ""
     for (let i = 0; i < length; i++){

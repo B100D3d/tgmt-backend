@@ -105,4 +105,20 @@ apiRouter.use("/getSchedule", checkToken, (req, res) => graphqlHTTP({
 }
 )(req, res))
 
+apiRouter.use("/grades", checkAdminOrTeacher, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.gradesResolver,
+    schema: schema.grades,
+    context: {req, res}
+}
+)(req, res))
+
+apiRouter.use("/studentGrades", checkToken, (req, res) => graphqlHTTP({
+    graphiql: isDev,
+    rootValue: resolver.studentGradesResolver,
+    schema: schema.grades,
+    context: {req, res}
+}
+)(req, res))
+
 export default apiRouter

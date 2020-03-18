@@ -9,21 +9,21 @@ import {
 export default new GraphQLObjectType({
     name: "Grade",
     fields: () => ({
-        subject: {
-            type: new GraphQLObjectType({
-                name: "StudentSubject",
-                fields: () => ({
-                    name: {
-                        type: GraphQLString
-                    },
-                    teacher: {
-                        type: GraphQLString
-                    }
-                })
-            })
+        entity: {
+            type: GraphQLString
         },
         grades: {
-            type: new GraphQLList(GraphQLInt)
+            type: new GraphQLList(new GraphQLObjectType({
+                name: "Grades",
+                fields: () => ({
+                    day: {
+                        type: GraphQLInt
+                    },
+                    grade: {
+                        type: GraphQLInt
+                    }
+                })
+            }))
         }
     })
 })

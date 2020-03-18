@@ -15,6 +15,11 @@ const months: {[key: number]: string} = {
     11: "Декабря"
 };
 
+export const getTime = (): string => {
+    const date = new Date()
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
+
 export const getDate = (): string => {
     const date = new Date();
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;

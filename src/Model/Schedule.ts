@@ -13,7 +13,7 @@ import scheduleModel from "./MongoModels/scheduleModel"
 
 
 
-export const getSchedule = async(args: ScheduleGetData): Promise<Array<Schedule>> => {
+export const getSchedule = async (args: ScheduleGetData, { res }: ExpressParams): Promise<Array<Schedule>> => {
     const { groupID: id, even, subgroup } = args
 
     const groupDB = await groupModel
@@ -28,6 +28,11 @@ export const getSchedule = async(args: ScheduleGetData): Promise<Array<Schedule>
                                 }
                             })
                             .exec()
+    
+    if(!groupDB) {
+        res.status(404)
+        return
+    }
 
     const schedule = groupDB.schedule
         .filter(({ even: e, subgroup: s }: ScheduleModel) => (!even && !subgroup) ? true 

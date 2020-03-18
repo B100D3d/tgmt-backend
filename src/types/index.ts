@@ -50,6 +50,19 @@ export interface SubjectData {
     teacher: string;
 }
 
+export interface GradesGetData {
+    month: number;
+    groupID?: string;
+    subjectID?: string;
+}
+
+export interface GradesSetData extends GradesGetData {
+    grades: {
+        student: string;
+        grades: Array<Grade>;
+    }[];
+}
+
 export interface ScheduleGetData {
     groupID: string;
     even?: boolean;
@@ -117,9 +130,10 @@ export interface AbsenceModel extends Document {
 }
 
 export interface GradesModel extends Document {
-    subject: Schema.Types.ObjectId;
-    date: Date;
-    grades: Array<number>;
+    student: Schema.Types.ObjectId & StudentModel;
+    subject: Schema.Types.ObjectId & SubjectModel;
+    month: number;
+    grades: Map<string, number>;
 }
 
 export interface GroupModel extends Document {
@@ -192,10 +206,14 @@ export interface Absence {
     absence: boolean;
 }
 
+export interface Grades {
+    entity: string;
+    grades: Array<Grade>;
+}
+
 export interface Grade {
-    subject: Subject;
-    date: Date;
-    grade: number;
+    day: number;
+    grade?: number;
 }
 
 export interface Login {

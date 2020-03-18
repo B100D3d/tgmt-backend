@@ -8,6 +8,7 @@ import students from "./students"
 import subjects from "./subjects"
 import teachers from "./teachers"
 import schedules from "./schedules"
+import grades from "./grades"
 
 
 export {
@@ -20,5 +21,6 @@ export {
     students,
     subjects,
     teachers,
-    schedules
+    schedules,
+    grades
 }
